@@ -185,12 +185,12 @@
           <div class="row">
 
             <!-- Sales Card -->
-            <div class="col-xxl-4 col-md-6">
+            <div class="col-xxl-6 col-md-6">
               <div class="card info-card sales-card">
 
                 <div class="filter">
-                  <a class="icon" href="#" data-bs-toggle="dropdown"><i class="bi bi-three-dots"></i></a>
-                  <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow">
+                  <button class="btn btn-primary btn-sm" style="margin-right: 10pt;" onclick="refresh('code', this, 'list-update-date')">更新</button>
+                  <!-- <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow">
                     <li class="dropdown-header text-start">
                       <h6>Filter</h6>
                     </li>
@@ -198,20 +198,19 @@
                     <li><a class="dropdown-item" href="#">Today</a></li>
                     <li><a class="dropdown-item" href="#">This Month</a></li>
                     <li><a class="dropdown-item" href="#">This Year</a></li>
-                  </ul>
+                  </ul> -->
                 </div>
 
                 <div class="card-body">
-                  <h5 class="card-title">Sales <span>| Today</span></h5>
+                  <h5 class="card-title">Information <span>| List</span></h5>
 
                   <div class="d-flex align-items-center">
                     <div class="card-icon rounded-circle d-flex align-items-center justify-content-center">
-                      <i class="bi bi-cart"></i>
+                      <i class="bi bi-list-ul"></i>
                     </div>
                     <div class="ps-3">
-                      <h6>145</h6>
-                      <span class="text-success small pt-1 fw-bold">12%</span> <span class="text-muted small pt-2 ps-1">increase</span>
-
+                      <h6>證券列表</h6>
+                      <span class="text-success small pt-1 fw-bold" id="list-update-date">--</span> <span class="text-muted small pt-2 ps-1">updated</span>
                     </div>
                   </div>
                 </div>
@@ -220,12 +219,12 @@
             </div><!-- End Sales Card -->
 
             <!-- Revenue Card -->
-            <div class="col-xxl-4 col-md-6">
+            <div class="col-xxl-6 col-md-6">
               <div class="card info-card revenue-card">
 
                 <div class="filter">
-                  <a class="icon" href="#" data-bs-toggle="dropdown"><i class="bi bi-three-dots"></i></a>
-                  <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow">
+                  <button class="btn btn-primary btn-sm" style="margin-right: 10pt;" onclick="refresh('price', this, 'price-update-date')">更新</button>
+                  <!-- <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow">
                     <li class="dropdown-header text-start">
                       <h6>Filter</h6>
                     </li>
@@ -233,19 +232,19 @@
                     <li><a class="dropdown-item" href="#">Today</a></li>
                     <li><a class="dropdown-item" href="#">This Month</a></li>
                     <li><a class="dropdown-item" href="#">This Year</a></li>
-                  </ul>
+                  </ul> -->
                 </div>
 
                 <div class="card-body">
-                  <h5 class="card-title">Revenue <span>| This Month</span></h5>
+                  <h5 class="card-title">Information <span>| Price</span></h5>
 
                   <div class="d-flex align-items-center">
                     <div class="card-icon rounded-circle d-flex align-items-center justify-content-center">
                       <i class="bi bi-currency-dollar"></i>
                     </div>
                     <div class="ps-3">
-                      <h6>$3,264</h6>
-                      <span class="text-success small pt-1 fw-bold">8%</span> <span class="text-muted small pt-2 ps-1">increase</span>
+                      <h6>價位</h6>
+                      <span class="text-success small pt-1 fw-bold" id="price-update-date">--</span> <span class="text-muted small pt-2 ps-1">updated</span>
 
                     </div>
                   </div>
@@ -254,66 +253,185 @@
               </div>
             </div><!-- End Revenue Card -->
 
-            <!-- Customers Card -->
-            <div class="col-xxl-4 col-xl-12">
-
-              <div class="card info-card customers-card">
-
-                <div class="filter">
-                  <a class="icon" href="#" data-bs-toggle="dropdown"><i class="bi bi-three-dots"></i></a>
-                  <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow">
-                    <li class="dropdown-header text-start">
-                      <h6>Filter</h6>
-                    </li>
-
-                    <li><a class="dropdown-item" href="#">Today</a></li>
-                    <li><a class="dropdown-item" href="#">This Month</a></li>
-                    <li><a class="dropdown-item" href="#">This Year</a></li>
-                  </ul>
-                </div>
-
-                <div class="card-body">
-                  <h5 class="card-title">Customers <span>| This Year</span></h5>
-
-                  <div class="d-flex align-items-center">
-                    <div class="card-icon rounded-circle d-flex align-items-center justify-content-center">
-                      <i class="bi bi-people"></i>
-                    </div>
-                    <div class="ps-3">
-                      <h6>1244</h6>
-                      <span class="text-danger small pt-1 fw-bold">12%</span> <span class="text-muted small pt-2 ps-1">decrease</span>
-
-                    </div>
-                  </div>
-
-                </div>
-              </div>
-
-            </div><!-- End Customers Card -->
-
             <!-- Reports -->
             <div class="col-12">
               <div class="card">
-
                 <div class="filter">
-                  <a class="icon" href="#" data-bs-toggle="dropdown"><i class="bi bi-three-dots"></i></a>
-                  <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow">
-                    <li class="dropdown-header text-start">
-                      <h6>Filter</h6>
-                    </li>
-
-                    <li><a class="dropdown-item" href="#">Today</a></li>
-                    <li><a class="dropdown-item" href="#">This Month</a></li>
-                    <li><a class="dropdown-item" href="#">This Year</a></li>
-                  </ul>
                 </div>
-
                 <div class="card-body">
-                  <h5 class="card-title">Reports <span>/Today</span></h5>
+                  <h3 class="card-title">Filter <span></span></h3>
+                  <hr>
+                  <div class="row">
+                    <button class="col btn btn-secondary" id="KDJ-toggle-btn" onclick="toggle('KDJ')">KDJ</button>
+                    <button class="col btn btn-light" id="RSI-toggle-btn" onclick="toggle('RSI')">RSI</button>
+                    <button class="col btn btn-light" id="MACD-toggle-btn" onclick="toggle('MACD')">MACD</button>
+                    <button class="col btn btn-light" id="trend-toggle-btn" onclick="toggle('trend')">K線趨勢</button>
+                  </div>
+                  <hr>
+                  <div class="">
+                    <form id="search-form">
+                        <div class="form-group">
+                          <div id="KDJ-div" style="display: block;">
+                            <div class="row">
+                              <div class="col form-check form-check-inline">
+                                <input type="hidden" name="K_value" value="0">
+                                <input class="form-check-input" type="checkbox" id="K-value-checkbox" name="K_value" value="1" onchange="toggle_enable(
+                                  this, 
+                                  ['K-greater-checkbox', 'K-less-checkbox', 'K-value-day-checkbox', 'K-value-week-checkbox', 'K-value-month-checkbox'], 
+                                  ['K-greater-checkbox', 'K-less-checkbox', 'K-greater-input', 'K-less-input', 'K-value-day-checkbox', 'K-value-week-checkbox', 'K-value-month-checkbox']
+                                  )">
+                                <label class="form-check-label" for="K-value-checkbox">K值</label>
+                              </div>
+                              <div class="col">
+                                <input type="hidden" name="K_greater" value="0">
+                                <input class="form-check-input" type="checkbox" id="K-greater-checkbox" name="K_greater" value="1" onchange="toggle_enable(this, ['K-greater-input'], ['K-greater-input'])" disabled>
+                                <label class="form-label" for="K-greater-input"> > </label>
+                                <input type="text" class="form-control" placeholder="數值" id="K-greater-input" style="width: 4rem;" aria-label="K lower bound" name="K_greater_than" value="0" disabled>
+                              </div>
+                              <div class="col">
+                                <input type="hidden" name="K_less" value="0">
+                                <input class="form-check-input" type="checkbox" id="K-less-checkbox" name="K_less" value="1" onchange="toggle_enable(this, ['K-less-input'], ['K-less-input'])" disabled>
+                                <label class="form-label" for="K-less-input"> &lt; </label>
+                                <input type="text" class="form-control" placeholder="數值" id="K-less-input" style="width: 4rem;" aria-label="K upper bound" name="K_less_than" value="0" disabled>
+                              </div>
+                              <div class="col">
+                                <input type="hidden" name="K_value_day" value="0">
+                                <input class="form-check-input" type="checkbox" id="K-value-day-checkbox" name="K_value_day" value="1" disabled>
+                                <label class="form-label" for="K-value-day-checkbox"> 日線 </label>
+                              </div>
+                              <div class="col">
+                                <input type="hidden" name="K_value_week" value="0">
+                                <input class="form-check-input" type="checkbox" id="K-value-week-checkbox" name="K_value_week" value="1" disabled>
+                                <label class="form-label" for="K-value-month-checkbox"> 週線 </label>
+                              </div>
+                              <div class="col">
+                                <input type="hidden" name="K_value_month" value="0">
+                                <input class="form-check-input" type="checkbox" id="K-value-month-checkbox" name="K_value_month" value="1" disabled>
+                                <label class="form-label" for="K-value-month-checkbox"> 月線 </label>
+                              </div>
+                            </div>
+                            <hr>
+                            <div class="row">
+                              <div class="col form-check form-check-inline">
+                                <input type="hidden" name="D_value" value="0">
+                                <input class="form-check-input" type="checkbox" id="D-value-checkbox" name="D_value" value="1" onchange="toggle_enable(
+                                  this, 
+                                  ['D-greater-checkbox', 'D-less-checkbox', 'D-value-day-checkbox', 'D-value-week-checkbox', 'D-value-month-checkbox'], 
+                                  ['D-greater-checkbox', 'D-less-checkbox', 'D-greater-input', 'D-less-input', 'D-value-day-checkbox', 'D-value-week-checkbox', 'D-value-month-checkbox']
+                                  )">
+                                <label class="form-check-label" for="D-value-checkbox">D值</label>
+                              </div>
+                              <div class="col">
+                                <input type="hidden" name="D_greater" value="0">
+                                <input class="form-check-input" type="checkbox" id="D-greater-checkbox" name="D_greater" value="1" onchange="toggle_enable(this, ['D-greater-input'], ['D-greater-input'])" disabled>
+                                <label class="form-label" for="D-greater-input"> > </label>
+                                <input type="text" class="form-control" placeholder="數值" id="D-greater-input" style="width: 4rem;" aria-label="D lower bound" name="D_greater_than" value="0" disabled>
+                              </div>
+                              <div class="col">
+                                <input type="hidden" name="D_less" value="0">
+                                <input class="form-check-input" type="checkbox" id="D-less-checkbox" name="D_less" value="1" onchange="toggle_enable(this, ['D-less-input'], ['D-less-input'])" disabled>
+                                <label class="form-label" for="D-less-input"> &lt; </label>
+                                <input type="text" class="form-control" placeholder="數值" id="D-less-input" style="width: 4rem;" aria-label="D upper bound" name="D_less_than" value="0" disabled>
+                              </div>
+                              <div class="col">
+                                <input type="hidden" name="D_value_day" value="0">
+                                <input class="form-check-input" type="checkbox" id="D-value-day-checkbox" name="D_value_day" value="1" disabled>
+                                <label class="form-label" for="D-value-day-checkbox"> 日線 </label>
+                              </div>
+                              <div class="col">
+                                <input type="hidden" name="D_value_week" value="0">
+                                <input class="form-check-input" type="checkbox" id="D-value-week-checkbox" name="D_value_week" value="1" disabled>
+                                <label class="form-label" for="D-value-month-checkbox"> 週線 </label>
+                              </div>
+                              <div class="col">
+                                <input type="hidden" name="D_value_month" value="0">
+                                <input class="form-check-input" type="checkbox" id="D-value-month-checkbox" name="D_value_month" value="1" disabled>
+                                <label class="form-label" for="D-value-month-checkbox"> 月線 </label>
+                              </div>
+                            </div>
+                            <hr>
+                            <div class="row">
+                              <div class="col form-check form-check-inline">
+                                <input type="hidden" name="J_value" value="0">
+                                <input class="form-check-input" type="checkbox" id="J-value-checkbox" name="J_value" value="1" onchange="toggle_enable(
+                                  this, 
+                                  ['J-greater-checkbox', 'J-less-checkbox', 'J-value-day-checkbox', 'J-value-week-checkbox', 'J-value-month-checkbox'], 
+                                  ['J-greater-checkbox', 'J-less-checkbox', 'J-greater-input', 'J-less-input', 'J-value-day-checkbox', 'J-value-week-checkbox', 'J-value-month-checkbox'])">
+                                <label class="form-check-label" for="J-value-checkbox">J值</label>
+                              </div>
+                              <div class="col">
+                                <input type="hidden" name="J_greater" value="0">
+                                <input class="form-check-input" type="checkbox" id="J-greater-checkbox" name="J_greater" value="1" onchange="toggle_enable(this, ['J-greater-input'], ['J-greater-input'])" disabled>
+                                <label class="form-label" for="J-greater-input"> > </label>
+                                <input type="text" class="form-control" placeholder="數值" id="J-greater-input" style="width: 4rem;" aria-label="J lower bound" name="J_greater_than" value="0" disabled>
+                              </div>
+                              <div class="col">
+                                <input type="hidden" name="J_less" value="0">
+                                <input class="form-check-input" type="checkbox" id="J-less-checkbox" name="J_less" value="1" onchange="toggle_enable(this, ['J-less-input'], ['J-less-input'])" disabled>
+                                <label class="form-label" for="J-less-input"> &lt; </label>
+                                <input type="text" class="form-control" placeholder="數值" id="J-less-input" style="width: 4rem;" aria-label="J upper bound" name="J_less_than" value="0" disabled>
+                              </div>
+                              <div class="col">
+                                <input type="hidden" name="J_value_day" value="0">
+                                <input class="form-check-input" type="checkbox" id="J-value-day-checkbox" name="J_value_day" value="1" disabled>
+                                <label class="form-label" for="J-value-day-checkbox"> 日線 </label>
+                              </div>
+                              <div class="col">
+                                <input type="hidden" name="J_value_week" value="0">
+                                <input class="form-check-input" type="checkbox" id="J-value-week-checkbox" name="J_value_week" value="1" disabled>
+                                <label class="form-label" for="J-value-month-checkbox"> 週線 </label>
+                              </div>
+                              <div class="col">
+                                <input type="hidden" name="J_value_month" value="0">
+                                <input class="form-check-input" type="checkbox" id="J-value-month-checkbox" name="J_value_month" value="1" disabled>
+                                <label class="form-label" for="J-value-month-checkbox"> 月線 </label>
+                              </div>
+                            </div>
+                            <hr>
+                            <div class="row">
+                              <div class="col form-check form-check-inline">
+                                <input type="hidden" name="cross" value="0">
+                                <input class="form-check-input" type="checkbox" id="cross-checkbox" name="cross" value="1" onchange="toggle_enable(
+                                  this, 
+                                  ['golden-cross-checkbox', 'd-cross-checkbox', 'cross-day-checkbox', 'cross-week-checkbox', 'cross-month-checkbox'], 
+                                  ['golden-cross-checkbox', 'd-cross-checkbox', 'cross-day-checkbox', 'cross-week-checkbox', 'cross-month-checkbox'])">
+                                <label class="form-check-label" for="J-value-checkbox">交叉</label>
+                              </div>
+                              <div class="col">
+                                <input type="hidden" name="golden_cross" value="0">
+                                <input class="form-check-input" type="checkbox" id="golden-cross-checkbox" name="golden_cross" value="1" disabled>
+                                <label class="form-label" for="golden-cross-checkbox"> 黃金交叉 </label>
+                              </div>
+                              <div class="col">
+                                <input type="hidden" name="d_cross" value="0">
+                                <input class="form-check-input" type="checkbox" id="d-cross-checkbox" name="d_cross" value="1" disabled>
+                                <label class="form-label" for="d-cross-checkbox"> 死亡交叉 </label>
+                              </div>
+                              <div class="col">
+                                <input type="hidden" name="cross_day" value="0">
+                                <input class="form-check-input" type="checkbox" id="cross-day-checkbox" name="cross_day" value="1" disabled>
+                                <label class="form-label" for="cross-day-checkbox"> 日線 </label>
+                              </div>
+                              <div class="col">
+                                <input type="hidden" name="cross_week" value="0">
+                                <input class="form-check-input" type="checkbox" id="cross-week-checkbox" name="cross_week" value="1" disabled>
+                                <label class="form-label" for="cross-week-checkbox"> 週線 </label>
+                              </div>
+                              <div class="col">
+                                <input type="hidden" name="cross_month" value="0">
+                                <input class="form-check-input" type="checkbox" id="cross-month-checkbox" name="cross_month" value="1" disabled>
+                                <label class="form-label" for="cross-month-checkbox"> 月線 </label>
+                              </div>
+                            </div>
+                          </div>
 
-                  <!-- Line Chart -->
-                  <div id="reportsChart"></div>
-                  <!-- End Line Chart -->
+                          <div id="trend-div" style="display: none;">
+                          </div>
+                        </div>
+                    </form>
+                    <hr>
+                    <button class="btn btn-primary" onclick="search(this)">Search</button>
+                </div>
 
                 </div>
 
@@ -329,7 +447,7 @@
 
           <!-- Recent Activity -->
           <div class="card">
-            <div class="filter">
+            <!-- <div class="filter">
               <a class="icon" href="#" data-bs-toggle="dropdown"><i class="bi bi-three-dots"></i></a>
               <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow">
                 <li class="dropdown-header text-start">
@@ -340,60 +458,11 @@
                 <li><a class="dropdown-item" href="#">This Month</a></li>
                 <li><a class="dropdown-item" href="#">This Year</a></li>
               </ul>
-            </div>
+            </div> -->
 
             <div class="card-body">
-              <h5 class="card-title">Recent Activity <span>| Today</span></h5>
-
-              <div class="activity">
-
-                <div class="activity-item d-flex">
-                  <div class="activite-label">32 min</div>
-                  <i class='bi bi-circle-fill activity-badge text-success align-self-start'></i>
-                  <div class="activity-content">
-                    Quia quae rerum <a href="#" class="fw-bold text-dark">explicabo officiis</a> beatae
-                  </div>
-                </div><!-- End activity item-->
-
-                <div class="activity-item d-flex">
-                  <div class="activite-label">56 min</div>
-                  <i class='bi bi-circle-fill activity-badge text-danger align-self-start'></i>
-                  <div class="activity-content">
-                    Voluptatem blanditiis blanditiis eveniet
-                  </div>
-                </div><!-- End activity item-->
-
-                <div class="activity-item d-flex">
-                  <div class="activite-label">2 hrs</div>
-                  <i class='bi bi-circle-fill activity-badge text-primary align-self-start'></i>
-                  <div class="activity-content">
-                    Voluptates corrupti molestias voluptatem
-                  </div>
-                </div><!-- End activity item-->
-
-                <div class="activity-item d-flex">
-                  <div class="activite-label">1 day</div>
-                  <i class='bi bi-circle-fill activity-badge text-info align-self-start'></i>
-                  <div class="activity-content">
-                    Tempore autem saepe <a href="#" class="fw-bold text-dark">occaecati voluptatem</a> tempore
-                  </div>
-                </div><!-- End activity item-->
-
-                <div class="activity-item d-flex">
-                  <div class="activite-label">2 days</div>
-                  <i class='bi bi-circle-fill activity-badge text-warning align-self-start'></i>
-                  <div class="activity-content">
-                    Est sit eum reiciendis exercitationem
-                  </div>
-                </div><!-- End activity item-->
-
-                <div class="activity-item d-flex">
-                  <div class="activite-label">4 weeks</div>
-                  <i class='bi bi-circle-fill activity-badge text-muted align-self-start'></i>
-                  <div class="activity-content">
-                    Dicta dolorem harum nulla eius. Ut quidem quidem sit quas
-                  </div>
-                </div><!-- End activity item-->
+              <h5 class="card-title">Search Result</h5>
+              <div  id="result" style="height: 400pt; overflow: auto;">
 
               </div>
 
@@ -423,7 +492,146 @@
   </footer><!-- End Footer -->
 
   <a href="#" class="back-to-top d-flex align-items-center justify-content-center"><i class="bi bi-arrow-up-short"></i></a>
+  <script>
+    // function toggle_enable(element, enable_list, disable_list) {
+    //   if(element.checked) {
+    //     for (const [index, id_] of Object.entries(enable_list)) {
+    //       var to_toggle = document.getElementById(id_);
+    //       to_toggle.disabled = false;
+    //     }
+    //   }
+    //   else {
+    //     for (const [index, id_] of Object.entries(disable_list)) {
+    //       var to_toggle = document.getElementById(id_);
+    //       if(to_toggle.type === 'checkbox' ){
+    //         to_toggle.checked = false;
+    //       }
+    //       to_toggle.disabled = true;
+    //     }
+    //   }
+      
+    // }
 
+    // function toggle(category) {
+    //   console.log(category)
+    //   /* Button */
+    //   buttons = {
+    //     'KDJ': document.getElementById("KDJ-toggle-btn"),
+    //     'trend': document.getElementById("trend-toggle-btn")
+    //   };
+    //   // console.log(buttons)
+
+    //   /* Div */
+    //   divs = {
+    //     'KDJ': document.getElementById("KDJ-div"),
+    //     'trend': document.getElementById("trend-div")
+    //   };
+
+    //   /* toggle */
+    //   for (const [key, value] of Object.entries(buttons)) {
+    //         if(key === category){
+    //           if(value.classList.contains('btn-light')){
+    //             value.classList.remove('btn-light');
+    //             value.classList.add('btn-secondary');
+    //           }
+    //         }
+    //         else{
+    //           if(value.classList.contains('btn-secondary')){
+    //             value.classList.remove('btn-secondary');
+    //             value.classList.add('btn-light');
+    //           }
+    //         }
+    //   }
+
+    //   for (const [key, value] of Object.entries(divs)) {
+    //         if(key === category){
+    //           if(value.style.display === 'none'){
+    //             value.style.display = 'block';
+    //           }
+    //         }
+    //         else{
+    //           if(value.style.display === 'block'){
+    //             value.style.display = 'none';
+    //           }
+    //         }
+    //   }
+      
+    // }
+
+    // async function refresh(aspect, button, date_id) {
+    //   var originText = button.innerHTML;
+    //   button.innerHTML = '<span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>';
+    //   var state = "";
+    //   await fetch(`http://127.0.0.1:8000/refresh/${aspect}/`, {
+    //         method: 'get'
+    //     })
+    //     .then(response => {
+    //         if (!response.ok) {
+    //             throw new Error('Network response was not ok');
+    //         }
+    //         state =  "Complete";
+    //     })
+    //     .catch(error => {
+    //         console.error('There was an error!', error);
+    //         state = "Failed";
+    //     });
+
+    //     alert(state);
+    //     if(state === "Complete"){
+    //       var date = new Date();
+    //       var toChange = document.getElementById(date_id);
+    //       console.log(toChange);
+    //       toChange.innerHTML = `${date.getFullYear()}.${date.getMonth()+1}.${date.getDate()}`;
+    //     }
+    //     button.innerHTML = originText;
+    //     return;
+    // }
+
+    // async function search(button) {
+    //     var form = document.getElementById('search-form');
+    //     var formData = new FormData(form);
+    //     var data = {};
+    //     for (var [key, value] of formData.entries()) {
+    //         data[key] = value;
+    //     }
+    //     var originText = button.innerHTML;
+    //     button.innerHTML = '<span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>';
+    //     var state = "";
+
+    //     await fetch('http://127.0.0.1:8000/filter/', {
+    //         method: 'POST',
+    //         body: JSON.stringify(data)
+    //     })
+    //     .then(response => {
+    //         if (!response.ok) {
+    //             throw new Error('Network response was not ok');
+    //         }
+    //         return response.json();
+    //     })
+    //     .then(data => {
+    //         // console.log('Received data:', data);
+    //         var container = document.getElementById('result');
+    //         container.innerHTML = "";
+    //         data.forEach(element => {
+    //             var para = document.createElement("p");
+    //             var link = document.createElement("a");
+    //             link.appendChild(document.createTextNode(`${element.code} ${element.name}`));
+    //             link.href = `https://tw.stock.yahoo.com/quote/${element.code}.TW/technical-analysis`;
+    //             link.target = '_blank';
+    //             para.appendChild(link);
+    //             container.appendChild(para);
+    //             console.log(element);
+    //         });
+    //         state =  "Complete";
+    //     })
+    //     .catch(error => {
+    //         console.error('There was an error!', error);
+    //         state =  "Failed";
+    //     });
+    //     alert(state);
+    //     button.innerHTML = originText;
+    // }
+</script>
   <!-- Vendor JS Files -->
   <script src="assets/vendor/apexcharts/apexcharts.min.js"></script>
   <script src="assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
@@ -434,7 +642,7 @@
   <script src="assets/vendor/tinymce/tinymce.min.js"></script>
   <script src="assets/vendor/php-email-form/validate.js"></script>
 
-  <script src="scripts/chart.js"></script>
+  <script src="scripts/index.js"></script>
 
   <!-- Template Main JS File -->
   <script src="assets/js/main.js"></script>
