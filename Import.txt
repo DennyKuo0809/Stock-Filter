@@ -1,6 +1,0 @@
-fastapi
-pymongo
-tqdm
-requests
-pyquery
-uvicorn

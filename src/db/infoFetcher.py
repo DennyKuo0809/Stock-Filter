@@ -3,6 +3,7 @@ from tqdm import tqdm
 import datetime
 import requests
 from pyquery import PyQuery as pq
+import yfinance
 
 ### For fetching price
 root = 'http://www.twse.com.tw/exchangeReport/STOCK_DAY?response=json'
@@ -10,6 +11,30 @@ root = 'http://www.twse.com.tw/exchangeReport/STOCK_DAY?response=json'
 ### For fetching codes
 TWSE_URL = 'http://isin.twse.com.tw/isin/C_public.jsp?strMode=2'
 TPEX_URL = 'http://isin.twse.com.tw/isin/C_public.jsp?strMode=4'
+
+
+### Fetch Price from yahoo
+def fetchPrice_yahoo(code, days=365, expansion='TW'):
+    period = 365 if days > 365 else days
+    end = datetime.date.today()+datetime.timedelta(days=1)
+    start = datetime.date.today()+datetime.timedelta(days=(-1)*period)
+    df = yfinance.download(
+        f'{code}.{expansion}', 
+        start=f'{start.year}-{start.month:02}-{start.day:02}', 
+        end=f'{end.year}-{end.month:02}-{end.day:02}', 
+    )
+
+    data = [] # columns= ['日期', '開盤價', '最高價', '最低價', '收盤價']
+    for i in range(df.shape[0]):
+        d = {}
+        date = df.index[0]
+        d['日期'] = f'{date.year-1911}/{date.month}/{date.day}'
+        d['開盤價'] = f"{df.iloc[i]['Open']}"
+        d['最高價'] = f"{df.iloc[i]['High']}"
+        d['最低價'] = f"{df.iloc[i]['Low']}"
+        d['收盤價'] = f"{df.iloc[i]['Close']}"
+        data.append(d)
+    return {'code': code, 'data': data }
 
 ### Fetch daily price for the past (period) months
 def fetchPrice(code, period=12): 
@@ -129,6 +154,80 @@ class InfoFetcher:
                 elif day_without_update > 0:
                     period = (month_now-int(lum)+1) if month_now >= int(lum) else (month_now-int(lum)+13)
                     price_data = fetchPrice(stock, period = period)
+                    current_data = self.db.price_col.find({'code' : stock}, {'_id': 0, 'data' : 1})[0]['data']
+                    new_data = []
+                    for cd in current_data:
+                        y, m, _ = cd['日期'].split('/')
+                        if (int(y) < year_now - 1911 and int(m) <= month_now) \
+                            or (int(y) == year_now - 1911 and int(m) == month_now):
+                            continue
+                        new_data.append(cd)
+                    new_data += price_data['data']
+                    self.db.price_col.update_one({'code': stock}, {"$set": {'data': new_data}})
+
+    def updatePrice_yahoo(self, key=[], val=[]):
+        ### Chcek
+        if len(key) != len(val):
+            print("[ERROR] The length of key and value do not match.")
+            return
+        
+        ### Get the list of code
+        stock_list = {}
+        for d in self.db.code_col.find():
+            match = True
+            for k, v in zip(key, val):
+                if d[k] != v:
+                    match = False
+                    break
+            if match:
+                if d['市場別'] == '上市':
+                    stock_list[d['code']] = 'TW'
+                elif d['市場別'] == '上櫃':
+                    stock_list[d['code']] = 'TWO'
+        # print(code_list)
+                    
+        ### Fetch the price and update to db
+        exist_stock = {}
+        for s in self.db.price_col.find():
+            # print(s['code'])
+            exist_stock[s['code']] = s['data'][-1]['日期'] if len(s['data']) else 'empty'
+
+        price_data = []
+
+        date_now = datetime.date.fromisoformat(
+            f'{datetime.date.today().year}-{datetime.date.today().month:02}-{datetime.date.today().day:02}'
+        )
+        month_now = datetime.date.today().month
+        year_now = datetime.date.today().year
+
+        for stock, expansion in tqdm(stock_list.items()):
+        # for stock in exist_stock:
+            # print(stock)
+            if stock not in exist_stock:
+                # print('newly add')
+                d = fetchPrice_yahoo(stock, expansion=expansion)
+                self.db.insert_data(self.db.price_col, d)
+            elif exist_stock[stock] == 'empty':
+                self.db.price_col.delete_one({'code' : stock})
+                price_data = fetchPrice_yahoo(stock, expansion=expansion)
+                self.db.insert_data(self.db.price_col, price_data)
+            else:
+                # print('exist')
+                luy, lum, lud = exist_stock[stock].split('/')
+                last_update = datetime.date.fromisoformat(f'{int(luy)+1911}-{lum}-{lud}')
+                day_without_update = (date_now - last_update).days
+                # print(date_now, ' ', last_update, ' ', day_without_update)
+
+                current_data = self.db.price_col.find({'code' : stock}, {'_id': 0, 'data' : 1})[0]['data']
+                # print(len(current_data))
+
+                if day_without_update > 365: # Over a year
+                    self.db.price_col.delete_one({'code' : stock})
+                    price_data = fetchPrice_yahoo(stock, expansion=expansion)
+                    self.db.insert_data(self.db.price_col, price_data)
+                elif day_without_update > 0:
+                    # period = (month_now-int(lum)+1) if month_now >= int(lum) else (month_now-int(lum)+13)
+                    price_data = fetchPrice_yahoo(stock, period=day_without_update, expansion=expansion)
                     current_data = self.db.price_col.find({'code' : stock}, {'_id': 0, 'data' : 1})[0]['data']
                     new_data = []
                     for cd in current_data:
