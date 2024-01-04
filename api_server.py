@@ -46,7 +46,7 @@ async def refreshCode():
 
 @app.get("/refresh/price/")
 async def refreshPrice():
-    infoFetcher.updatePrice(key=['市場別', 'dtype'], val=['上櫃', '股票'])
+    # infoFetcher.updatePrice(key=['市場別', 'dtype'], val=['上櫃', '股票'])
     infoFetcher.updatePrice(key=['市場別', 'dtype'], val=['上市', '股票'])
 
 
