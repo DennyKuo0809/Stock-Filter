@@ -124,14 +124,15 @@ class KDJ_Filter:
         K, D, J = [], [], []
         k, d, j = 50, 50, 50
         for i in range(8, len(high)):
-            rsv = 100 * (close[i] - min(low[(i-8):(i+1)])) / (max(high[(i-8):(i+1)]) - min(low[(i-8):(i+1)]))
-            k = k * 2 / 3 + rsv / 3
-            d = d * 2 / 3 + k / 3
-            j = d * 3 - 2 * k
-            K.append(k)
-            D.append(d)
-            J.append(j)
-            # print(f'{k}\t\t{d}\t\t{j}')
+            if (max(high[(i-8):(i+1)]) - min(low[(i-8):(i+1)])) != 0:
+                rsv = 100 * (close[i] - min(low[(i-8):(i+1)])) / (max(high[(i-8):(i+1)]) - min(low[(i-8):(i+1)]))
+                k = k * 2 / 3 + rsv / 3
+                d = d * 2 / 3 + k / 3
+                j = d * 3 - 2 * k
+                K.append(k)
+                D.append(d)
+                J.append(j)
+                # print(f'{k}\t\t{d}\t\t{j}')
         return K, D, J
     
     def cross(self, delay=0, interval='day'):
