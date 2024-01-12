@@ -227,7 +227,7 @@ class InfoFetcher:
                     self.db.insert_data(self.db.price_col, price_data)
                 elif day_without_update > 0:
                     # period = (month_now-int(lum)+1) if month_now >= int(lum) else (month_now-int(lum)+13)
-                    price_data = fetchPrice_yahoo(stock, period=day_without_update, expansion=expansion)
+                    price_data = fetchPrice_yahoo(stock, days=day_without_update, expansion=expansion)
                     current_data = self.db.price_col.find({'code' : stock}, {'_id': 0, 'data' : 1})[0]['data']
                     new_data = []
                     for cd in current_data:
