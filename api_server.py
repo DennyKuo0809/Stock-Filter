@@ -83,7 +83,7 @@ async def filter(request: Request):
     res = []
     for s in DB.code_col.find():
         stock[s['code']] = s
-    
+    href = 'https://tw.stock.yahoo.com/quote/${element.code}.TW/technical-analysis'
     for s in DB.price_col.find():
         # print(f'API_SERVER: code: {s["code"]}')
         info = f.makeInfo(s['data'])
@@ -92,7 +92,11 @@ async def filter(request: Request):
             res.append(
                 {
                     'code': s['code'],
-                    'name': stock[s['code']]['name']
+                    'name': stock[s['code']]['name'],
+                    'category': stock[s['code']]['市場別'],
+                    'src': f'https://tw.stock.yahoo.com/quote/{s["code"]}.TW/technical-analysis' \
+                            if stock[s['code']]['市場別'] == '上市' \
+                            else f'https://tw.stock.yahoo.com/quote/{s["code"]}.TWO/technical-analysis'
                 }
             )
 
