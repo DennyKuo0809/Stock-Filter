@@ -140,7 +140,7 @@ class InfoFetcher:
             else:
                 # print('exist')
                 luy, lum, lud = exist_stock[stock].split('/')
-                last_update = datetime.date.fromisoformat(f'{int(luy)+1911}-{lum}-{lud}')
+                last_update = datetime.date.fromisoformat(f'{int(luy)+1911}-{lum:02}-{lud:02}')
                 day_without_update = (date_now - last_update).days
                 # print(date_now, ' ', last_update, ' ', day_without_update)
 
@@ -214,7 +214,7 @@ class InfoFetcher:
             else:
                 # print('exist')
                 luy, lum, lud = exist_stock[stock].split('/')
-                last_update = datetime.date.fromisoformat(f'{int(luy)+1911}-{lum}-{lud}')
+                last_update = datetime.date.fromisoformat(f'{int(luy)+1911}-{lum:02}-{lud:02}')
                 day_without_update = (date_now - last_update).days
                 # print(date_now, ' ', last_update, ' ', day_without_update)
 
