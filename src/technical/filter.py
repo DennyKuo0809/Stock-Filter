@@ -50,7 +50,7 @@ class Filter:
                 info['week']['high'].append(float(d['最高價'].replace(',', '')))
                 info['week']['low'].append(float(d['最低價'].replace(',', '')))
         
-        for d in data:
+        for d in month_data:
             if re.match(r'^-?\d+(?:\.\d+)$', d['開盤價'].replace(',', '')) is not None: # Check if it's float
                 info['month']['open'].append(float(d['開盤價'].replace(',', '')))
                 info['month']['close'].append(float(d['收盤價'].replace(',', '')))
