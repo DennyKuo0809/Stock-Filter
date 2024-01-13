@@ -121,13 +121,13 @@ async function search(button) {
             container.innerHTML = "";
             data.forEach(element => {
                 var para = document.createElement("p");
-                const node = document.createTextNode(`${element.code} ${element.name}`)
-                para.appendChild(node);
-                // var link = document.createElement("a");
-                // link.appendChild(document.createTextNode(`${element.code} ${element.name}`));
-                // link.href = `https://tw.stock.yahoo.com/quote/${element.code}.TW/technical-analysis`;
-                // link.target = '_blank';
-                // para.appendChild(link);
+                // const node = document.createTextNode(`${element.code} ${element.name} ${element.category}`)
+                // para.appendChild(node);
+                var link = document.createElement("a");
+                link.appendChild(document.createTextNode(`${element.code} ${element.name} ${element.category}`));
+                link.href = element.src;
+                link.target = '_blank';
+                para.appendChild(link);
                 
                 container.appendChild(para);
                 console.log(element);
