@@ -27,7 +27,7 @@ def fetchPrice_yahoo(code, days=365, expansion='TW'):
     data = [] # columns= ['日期', '開盤價', '最高價', '最低價', '收盤價']
     for i in range(df.shape[0]):
         d = {}
-        date = df.index[0]
+        date = df.index[i]
         d['日期'] = f'{date.year-1911}/{date.month}/{date.day}'
         d['開盤價'] = f"{df.iloc[i]['Open']}"
         d['最高價'] = f"{df.iloc[i]['High']}"
