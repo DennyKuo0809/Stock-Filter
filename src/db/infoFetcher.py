@@ -147,7 +147,7 @@ class InfoFetcher:
                 current_data = self.db.price_col.find({'code' : stock}, {'_id': 0, 'data' : 1})[0]['data']
                 # print(len(current_data))
 
-                if day_without_update > 365: # Over a year
+                if day_without_update > 1800: # Over a year
                     self.db.price_col.delete_one({'code' : stock})
                     price_data = fetchPrice(stock)
                     self.db.insert_data(self.db.price_col, price_data)
