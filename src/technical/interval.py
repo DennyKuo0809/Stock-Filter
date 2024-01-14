@@ -37,6 +37,7 @@ class Interval_Applier:
 
         if len(intervals) and intervals[-1][1] is None:
             intervals[-1][1] = len(dates)-1
+            intervals = intervals[1:]
         return intervals
 
     def apply_interval(self, datas: list, interval='day'):
