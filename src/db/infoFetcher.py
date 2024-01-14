@@ -14,8 +14,8 @@ TPEX_URL = 'http://isin.twse.com.tw/isin/C_public.jsp?strMode=4'
 
 
 ### Fetch Price from yahoo
-def fetchPrice_yahoo(code, days=365, expansion='TW'):
-    period = 365 if days > 365 else days
+def fetchPrice_yahoo(code, days=1800, expansion='TW'):
+    period = 1800 if days > 1800 else days
     end = datetime.date.today()+datetime.timedelta(days=1)
     start = datetime.date.today()+datetime.timedelta(days=(-1)*period)
     df = yfinance.download(
@@ -221,7 +221,7 @@ class InfoFetcher:
                 current_data = self.db.price_col.find({'code' : stock}, {'_id': 0, 'data' : 1})[0]['data']
                 # print(len(current_data))
 
-                if day_without_update > 365: # Over a year
+                if day_without_update > 1800: # Over a year
                     self.db.price_col.delete_one({'code' : stock})
                     price_data = fetchPrice_yahoo(stock, expansion=expansion)
                     self.db.insert_data(self.db.price_col, price_data)
