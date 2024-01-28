@@ -240,7 +240,7 @@ class MACD_Filter():
             S.append(slowEMA)
             DIF.append(fastEMA-slowEMA)
             MACD.append(macd)
-            print(f'price: {close[i]:.3f}\t|\tfast: {fastEMA:.3f}\t|\tslow: {slowEMA:.3f}\t|\tdif: {DIF[-1]:.2f}\t|\tMACD: {macd:.2f}')
+            # print(f'price: {close[i]:.3f}\t|\tfast: {fastEMA:.3f}\t|\tslow: {slowEMA:.3f}\t|\tdif: {DIF[-1]:.2f}\t|\tMACD: {macd:.2f}')
         return F, S, DIF, MACD
 
 
