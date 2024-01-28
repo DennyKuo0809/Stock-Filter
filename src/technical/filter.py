@@ -3,6 +3,7 @@ import pymongo
 import re
 
 from .KDJ import KDJ_Filter
+from .MACD import MACD_Filter
 
 class Filter:
     def __init__(self,):
@@ -10,6 +11,7 @@ class Filter:
         self.condition = {}
         self.IA = Interval_Applier()
         self.KDJ_F = KDJ_Filter()
+        self.MACD_F = MACD_Filter()
         pass
     
     def makeInfo(self, data):
@@ -63,6 +65,8 @@ class Filter:
         self.info = info
         self.condition = condition
         match =  (self.KDJ_F.match(info, condition) == 1)
+        if match:
+            match = (self.MACD_F.match(info, condition) == 1)
         return match
     
     # def matchKDJ(self,):

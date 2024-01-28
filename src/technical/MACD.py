@@ -116,23 +116,61 @@ class MACD_Filter():
                 if int(condition['MACD_zero_lower']) and (self.prices['month']['DIF'][-1] >= 0 or self.prices['month']['MACD'][-1] >= 0 ):
                     return 0
 
-        if int(condition['macd_cross']):
-            if int(condition['macd_cross_day']):
-                if int(condition['macd_golden_cross']) and self.cross(interval='day') != 1:
+        if int(condition['MACD_cross']):
+            if int(condition['MACD_cross_day']):
+                if int(condition['MACD_golden_cross']) and self.cross(interval='day') != 1:
                         return 0
-                if int(condition['macd_d_cross']) and self.cross(interval='day') != -1:
-                        return 0
-            
-            if int(condition['macd_cross_week']):
-                if int(condition['macd_golden_cross']) and self.cross(interval='week') != 1:
-                        return 0
-                if int(condition['macd_d_cross']) and self.cross(interval='week') != -1:
+                if int(condition['MACD_d_cross']) and self.cross(interval='day') != -1:
                         return 0
             
-            if int(condition['macd_cross_month']):
-                if int(condition['macd_golden_cross']) and self.cross(interval='month') != 1:
+            if int(condition['MACD_cross_week']):
+                if int(condition['MACD_golden_cross']) and self.cross(interval='week') != 1:
                         return 0
-                if int(condition['macd_d_cross']) and self.cross(interval='month') != -1:
+                if int(condition['MACD_d_cross']) and self.cross(interval='week') != -1:
+                        return 0
+            
+            if int(condition['MACD_cross_month']):
+                if int(condition['MACD_golden_cross']) and self.cross(interval='month') != 1:
+                        return 0
+                if int(condition['MACD_d_cross']) and self.cross(interval='month') != -1:
+                        return 0
+
+        if int(condition['MACD_osc_shorten']):
+            if int(condition['MACD_osc_shorten_day']):
+                if int(condition['MACD_osc_shorten_red']) and self.SOC_shorten(interval='day') != 1:
+                        return 0
+                if int(condition['MACD_osc_shorten_green']) and self.SOC_shorten(interval='day') != -1:
+                        return 0
+            
+            if int(condition['MACD_osc_shorten_week']):
+                if int(condition['MACD_osc_shorten_red']) and self.SOC_shorten(interval='week') != 1:
+                        return 0
+                if int(condition['MACD_osc_shorten_green']) and self.SOC_shorten(interval='week') != -1:
+                        return 0
+            
+            if int(condition['MACD_osc_shorten_month']):
+                if int(condition['MACD_osc_shorten_red']) and self.SOC_shorten(interval='month') != 1:
+                        return 0
+                if int(condition['MACD_osc_shorten_green']) and self.SOC_shorten(interval='month') != -1:
+                        return 0
+
+        if int(condition['MACD_cross_predict']):
+            if int(condition['MACD_cross_predict_day']):
+                if int(condition['MACD_golden_cross_predict']) and self.cross(interval='day') != 1:
+                        return 0
+                if int(condition['MACD_d_cross_predict']) and self.cross(interval='day') != -1:
+                        return 0
+            
+            if int(condition['MACD_cross_predict_week']):
+                if int(condition['MACD_golden_cross_predict']) and self.cross_predict(interval='week') != 1:
+                        return 0
+                if int(condition['MACD_d_cross_predict']) and self.cross_predict(interval='week') != -1:
+                        return 0
+            
+            if int(condition['MACD_cross_predict_month']):
+                if int(condition['MACD_golden_cross_predict']) and self.cross_predict(interval='month') != 1:
+                        return 0
+                if int(condition['MACD_d_cross_predict']) and self.cross_predict(interval='month') != -1:
                         return 0
         return 1
 
@@ -152,6 +190,42 @@ class MACD_Filter():
         if info['DIF'][-2] < info['MACD'][-2] and info['DIF'][-1] > info['MACD'][-1]: # Golden Cross
             return 1
         if info['DIF'][-2] > info['MACD'][-2] and info['DIF'][-1] < info['MACD'][-1]: # Death Cross
+            return -1
+        return 0
+
+    def SOC_shorten(self, interval='day'):
+        ### Return
+        ### 1:  green
+        ### -1: red
+        ### 0:  Neither
+
+        info = self.prices[interval]
+
+        if len(info['DIF']) <= 1 or len(info['MACD']) <= 1:
+            return 0
+        
+        previous, last = (info['DIF'][-2] - info['MACD'][-2]), (info['DIF'][-1] - info['MACD'][-1])
+        if previous < 0 and last < 0 and previous < last: # Golden Cross
+            return 1
+        if previous > 0 and last > 0 and previous > last: # Death Cross
+            return -1
+        return 0
+
+    def cross_predict(self, interval='day', soc=2.5):
+        ### Return
+        ### 1:  Golden Cross (DIF > MACD)
+        ### -1: Death Corss (MACD < DIF)
+        ### 0:  Neither
+
+        info = self.prices[interval]
+
+        if len(info['DIF']) <= 1 or len(info['MACD']) <= 1:
+            return 0
+        
+        SOC = info['DIF'][-1] - info['MACD'][-1]
+        if SOC < 0 and SOC > soc * (-1) : # Golden Cross
+            return 1
+        if SOC >= 0 and SOC < soc: # Death Cross
             return -1
         return 0
 
