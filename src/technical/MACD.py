@@ -229,7 +229,7 @@ class MACD_Filter():
             return -1
         return 0
 
-    def calculate(self, close, date, fast=12, slow=26, x=9):
+    def calculate(self, close, fast=12, slow=26, x=9):
         fastEMA, slowEMA, macd = sum(close[:(fast-1)])/(fast-1), sum(close[:(slow-1)])/(slow-1), 0
         F, S, DIF, MACD = [], [], [], []
         for i in range(slow, len(close)):
@@ -240,7 +240,7 @@ class MACD_Filter():
             S.append(slowEMA)
             DIF.append(fastEMA-slowEMA)
             MACD.append(macd)
-            print(f'({i}-{date[i]}) price: {close[i]:.3f}\t|\tfast: {fastEMA:.3f}\t|\tslow: {slowEMA:.3f}\t|\tdif: {DIF[-1]:.2f}\t|\tMACD: {macd:.2f}')
+            print(f'price: {close[i]:.3f}\t|\tfast: {fastEMA:.3f}\t|\tslow: {slowEMA:.3f}\t|\tdif: {DIF[-1]:.2f}\t|\tMACD: {macd:.2f}')
         return F, S, DIF, MACD
 
 
@@ -249,4 +249,4 @@ if __name__ == "__main__":
     date = [i['日期'] for i in d['data']]
     p = [float(i['收盤價']) for i in d['data']]
     m = MACD_Filter()
-    m.calculate(p, date)
+    m.calculate(p)
