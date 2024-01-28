@@ -1,4 +1,5 @@
 import re
+import copy
 
 class KDJ_Filter:
     def __init__(self, ):
@@ -18,7 +19,7 @@ class KDJ_Filter:
         # print('in KDJ match pass check')
 
         ### Fetch prices by code
-        self.prices = info
+        self.prices = copy.deepcopy(info)
 
         ### Calculate KDJ
         self.prices['day']['K'], self.prices['day']['D'], self.prices['day']['J'] = self.calculate(
@@ -100,23 +101,23 @@ class KDJ_Filter:
                 if int(condition['J_less']) and self.prices['month']['J'][-1] > float(condition['J_less_than']):
                     return 0
 
-        if int(condition['cross']):
-            if int(condition['cross_day']):
-                if int(condition['golden_cross']) and self.cross(interval='day') != 1:
+        if int(condition['KDJ_cross']):
+            if int(condition['KDJ_cross_day']):
+                if int(condition['KDJ_golden_cross']) and self.cross(interval='day') != 1:
                         return 0
-                if int(condition['d_cross']) and self.cross(interval='day') != -1:
-                        return 0
-            
-            if int(condition['cross_week']):
-                if int(condition['golden_cross']) and self.cross(interval='week') != 1:
-                        return 0
-                if int(condition['d_cross']) and self.cross(interval='week') != -1:
+                if int(condition['KDJ_d_cross']) and self.cross(interval='day') != -1:
                         return 0
             
-            if int(condition['cross_month']):
-                if int(condition['golden_cross']) and self.cross(interval='month') != 1:
+            if int(condition['KDJ_cross_week']):
+                if int(condition['KDJ_golden_cross']) and self.cross(interval='week') != 1:
                         return 0
-                if int(condition['d_cross']) and self.cross(interval='month') != -1:
+                if int(condition['KDJ_d_cross']) and self.cross(interval='week') != -1:
+                        return 0
+            
+            if int(condition['KDJ_cross_month']):
+                if int(condition['KDJ_golden_cross']) and self.cross(interval='month') != 1:
+                        return 0
+                if int(condition['KDJ_d_cross']) and self.cross(interval='month') != -1:
                         return 0
         return 1
 

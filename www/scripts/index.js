@@ -24,6 +24,7 @@ function toggle(category) {
     /* Button */
     buttons = {
         'KDJ': document.getElementById("KDJ-toggle-btn"),
+        'MACD': document.getElementById('MACD-toggle-btn'),
         'trend': document.getElementById("trend-toggle-btn")
     };
     // console.log(buttons)
@@ -31,6 +32,7 @@ function toggle(category) {
     /* Div */
     divs = {
         'KDJ': document.getElementById("KDJ-div"),
+        'MACD': document.getElementById('MACD-div'),
         'trend': document.getElementById("trend-div")
     };
 

@@ -390,43 +390,116 @@
                             <hr>
                             <div class="row">
                               <div class="col form-check form-check-inline">
-                                <input type="hidden" name="cross" value="0">
-                                <input class="form-check-input" type="checkbox" id="cross-checkbox" name="cross" value="1" onchange="toggle_enable(
+                                <input type="hidden" name="KDJ_cross" value="0">
+                                <input class="form-check-input" type="checkbox" id="KDJ-cross-checkbox" name="KDJ_cross" value="1" onchange="toggle_enable(
                                   this, 
-                                  ['golden-cross-checkbox', 'd-cross-checkbox', 'cross-day-checkbox', 'cross-week-checkbox', 'cross-month-checkbox'], 
-                                  ['golden-cross-checkbox', 'd-cross-checkbox', 'cross-day-checkbox', 'cross-week-checkbox', 'cross-month-checkbox'])">
-                                <label class="form-check-label" for="J-value-checkbox">交叉</label>
+                                  ['KDJ-golden-cross-checkbox', 'KDJ-d-cross-checkbox', 'KDJ-cross-day-checkbox', 'KDJ-cross-week-checkbox', 'KDJ-cross-month-checkbox'], 
+                                  ['KDJ-golden-cross-checkbox', 'KDJ-d-cross-checkbox', 'KDJ-cross-day-checkbox', 'KDJ-cross-week-checkbox', 'KDJ-cross-month-checkbox'])">
+                                <label class="form-check-label" for="KDJ-cross-checkbox">交叉</label>
                               </div>
                               <div class="col">
-                                <input type="hidden" name="golden_cross" value="0">
-                                <input class="form-check-input" type="checkbox" id="golden-cross-checkbox" name="golden_cross" value="1" disabled>
-                                <label class="form-label" for="golden-cross-checkbox"> 黃金交叉 </label>
+                                <input type="hidden" name="KDJ_golden_cross" value="0">
+                                <input class="form-check-input" type="checkbox" id="KDJ-golden-cross-checkbox" name="KDJ_golden_cross" value="1" disabled>
+                                <label class="form-label" for="KDJ-golden-cross-checkbox"> 黃金交叉 </label>
                               </div>
                               <div class="col">
-                                <input type="hidden" name="d_cross" value="0">
-                                <input class="form-check-input" type="checkbox" id="d-cross-checkbox" name="d_cross" value="1" disabled>
-                                <label class="form-label" for="d-cross-checkbox"> 死亡交叉 </label>
+                                <input type="hidden" name="KDJ_d_cross" value="0">
+                                <input class="form-check-input" type="checkbox" id="KDJ-d-cross-checkbox" name="KDJ_d_cross" value="1" disabled>
+                                <label class="form-label" for="KDJ-d-cross-checkbox"> 死亡交叉 </label>
                               </div>
                               <div class="col">
-                                <input type="hidden" name="cross_day" value="0">
-                                <input class="form-check-input" type="checkbox" id="cross-day-checkbox" name="cross_day" value="1" disabled>
-                                <label class="form-label" for="cross-day-checkbox"> 日線 </label>
+                                <input type="hidden" name="KDJ_cross_day" value="0">
+                                <input class="form-check-input" type="checkbox" id="KDJ-cross-day-checkbox" name="KDJ_cross_day" value="1" disabled>
+                                <label class="form-label" for="KDJ-cross-day-checkbox"> 日線 </label>
                               </div>
                               <div class="col">
-                                <input type="hidden" name="cross_week" value="0">
-                                <input class="form-check-input" type="checkbox" id="cross-week-checkbox" name="cross_week" value="1" disabled>
-                                <label class="form-label" for="cross-week-checkbox"> 週線 </label>
+                                <input type="hidden" name="KDJ_cross_week" value="0">
+                                <input class="form-check-input" type="checkbox" id="KDJ-cross-week-checkbox" name="KDJ_cross_week" value="1" disabled>
+                                <label class="form-label" for="KDJ-cross-week-checkbox"> 週線 </label>
                               </div>
                               <div class="col">
-                                <input type="hidden" name="cross_month" value="0">
-                                <input class="form-check-input" type="checkbox" id="cross-month-checkbox" name="cross_month" value="1" disabled>
-                                <label class="form-label" for="cross-month-checkbox"> 月線 </label>
+                                <input type="hidden" name="KDJ_cross_month" value="0">
+                                <input class="form-check-input" type="checkbox" id="KDJ-cross-month-checkbox" name="KDJ_cross_month" value="1" disabled>
+                                <label class="form-label" for="KDJ-cross-month-checkbox"> 月線 </label>
                               </div>
                             </div>
                           </div>
-
-                          <div id="trend-div" style="display: none;">
+                          
+                          <div id="MACD-div" style="display: none;">
+                            <div class="row">
+                              <div class="col form-check form-check-inline">
+                                <input type="hidden" name="MACD_zero" value="0">
+                                <input class="form-check-input" type="checkbox" id="MACD-zero-checkbox" name="MACD_zero" value="1" onchange="toggle_enable(
+                                  this, 
+                                  ['MACD-zero-upper-checkbox', 'MACD-zero-lower-checkbox', 'MACD-zero-day-checkbox', 'MACD-zero-week-checkbox', 'MACD-zero-month-checkbox'], 
+                                  ['MACD-zero-upper-checkbox', 'MACD-zero-lower-checkbox', 'MACD-zero-day-checkbox', 'MACD-zero-week-checkbox', 'MACD-zero-month-checkbox']
+                                  )">
+                                <label class="form-check-label" for="MACD-zero-checkbox">零軸</label>
+                              </div>
+                              <div class="col">
+                                <input type="hidden" name="MACD_zero_upper" value="0">
+                                <input class="form-check-input" type="checkbox" id="MACD-zero-upper-checkbox" name="MACD_zero_upper" value="1" onchange="toggle_enable(this, ['K-greater-input'], ['K-greater-input'])" disabled>
+                                <label class="form-label" for="MACD-zero-upper-checkbox"> 以上 </label>
+                              </div>
+                              <div class="col">
+                                <input type="hidden" name="MACD_zero_lower" value="0">
+                                <input class="form-check-input" type="checkbox" id="MACD-zero-lower-checkbox" name="MACD_zero_lower" value="1" onchange="toggle_enable(this, ['K-less-input'], ['K-less-input'])" disabled>
+                                <label class="form-label" for="MACD-zero-lower-checkbox"> 以下 </label>
+                              </div>
+                              <div class="col">
+                                <input type="hidden" name="MACD_zero_day" value="0">
+                                <input class="form-check-input" type="checkbox" id="MACD-zero-day-checkbox" name="MACD_zero_day" value="1" disabled>
+                                <label class="form-label" for="MACD-zero-day-checkbox"> 日線 </label>
+                              </div>
+                              <div class="col">
+                                <input type="hidden" name="MACD_zero_week" value="0">
+                                <input class="form-check-input" type="checkbox" id="MACD-zero-week-checkbox" name="MACD_zero_week" value="1" disabled>
+                                <label class="form-label" for="MACD-zero-month-checkbox"> 週線 </label>
+                              </div>
+                              <div class="col">
+                                <input type="hidden" name="MACD_zero_month" value="0">
+                                <input class="form-check-input" type="checkbox" id="MACD-zero-month-checkbox" name="MACD_zero_month" value="1" disabled>
+                                <label class="form-label" for="MACD-zero-month-checkbox"> 月線 </label>
+                              </div>
+                            </div>
+                            <hr>
+                            <div class="row">
+                              <div class="col form-check form-check-inline">
+                                <input type="hidden" name="macd_cross" value="0">
+                                <input class="form-check-input" type="checkbox" id="macd-cross-checkbox" name="macd_cross" value="1" onchange="toggle_enable(
+                                  this, 
+                                  ['macd-golden-cross-checkbox', 'macd-d-cross-checkbox', 'macd-cross-day-checkbox', 'macd-cross-week-checkbox', 'macd-cross-month-checkbox'], 
+                                  ['macd-golden-cross-checkbox', 'macd-d-cross-checkbox', 'macd-cross-day-checkbox', 'macd-cross-week-checkbox', 'macd-cross-month-checkbox'])">
+                                <label class="form-check-label" for="macd-crosss-checkbox">交叉</label>
+                              </div>
+                              <div class="col">
+                                <input type="hidden" name="macd_golden_cross" value="0">
+                                <input class="form-check-input" type="checkbox" id="macd-golden-cross-checkbox" name="macd_golden_cross" value="1" disabled>
+                                <label class="form-label" for="macd-golden-cross-checkbox"> 黃金交叉 </label>
+                              </div>
+                              <div class="col">
+                                <input type="hidden" name="macd_d_cross" value="0">
+                                <input class="form-check-input" type="checkbox" id="macd-d-cross-checkbox" name="macd_d_cross" value="1" disabled>
+                                <label class="form-label" for="macd-d-cross-checkbox"> 死亡交叉 </label>
+                              </div>
+                              <div class="col">
+                                <input type="hidden" name="macd_cross_day" value="0">
+                                <input class="form-check-input" type="checkbox" id="macd-cross-day-checkbox" name="macd_cross_day" value="1" disabled>
+                                <label class="form-label" for="macd-cross-day-checkbox"> 日線 </label>
+                              </div>
+                              <div class="col">
+                                <input type="hidden" name="macd_cross_week" value="0">
+                                <input class="form-check-input" type="checkbox" id="macd-cross-week-checkbox" name="macd_cross_week" value="1" disabled>
+                                <label class="form-label" for="macd-cross-week-checkbox"> 週線 </label>
+                              </div>
+                              <div class="col">
+                                <input type="hidden" name="macd_cross_month" value="0">
+                                <input class="form-check-input" type="checkbox" id="macd-cross-month-checkbox" name="macd_cross_month" value="1" disabled>
+                                <label class="form-label" for="macd-cross-month-checkbox"> 月線 </label>
+                              </div>
+                            </div>
                           </div>
+                          
                         </div>
                     </form>
                     <hr>
