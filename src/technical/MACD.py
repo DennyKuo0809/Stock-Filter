@@ -82,13 +82,13 @@ class MACD_Filter():
         self.prices = copy.deepcopy(info)
 
         ### Calculate MACD
-        self.prices['day']['fastEMA'], self.prices['day']['slowEMA'], self.prices['day']['DIF'], self.price['day']['MACD'] = self.calculate(
+        self.prices['day']['fastEMA'], self.prices['day']['slowEMA'], self.prices['day']['DIF'], self.prices['day']['MACD'] = self.calculate(
             self.prices['day']['close']
         )
-        self.prices['week']['fastEMA'], self.prices['week']['slowEMA'], self.prices['week']['DIF'], self.price['week']['MACD'] = self.calculate(
+        self.prices['week']['fastEMA'], self.prices['week']['slowEMA'], self.prices['week']['DIF'], self.prices['week']['MACD'] = self.calculate(
             self.prices['week']['close']
         )
-        self.prices['month']['fastEMA'], self.prices['month']['slowEMA'], self.prices['month']['DIF'], self.price['month']['MACD'] = self.calculate(
+        self.prices['month']['fastEMA'], self.prices['month']['slowEMA'], self.prices['month']['DIF'], self.prices['month']['MACD'] = self.calculate(
             self.prices['month']['close']
         )
 
