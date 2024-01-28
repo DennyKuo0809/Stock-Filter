@@ -1,4 +1,4 @@
-from db import *
+from .db import *
 from tqdm import tqdm
 import datetime
 import requests
