@@ -62,7 +62,7 @@ def fetchPrice(code, period=12):
     return {'code': code, 'data': data }
 
 import re
-
+import copy
 class MACD_Filter():
     def __init__(self, ):
         self.prices = {}
