@@ -498,6 +498,80 @@
                                 <label class="form-label" for="macd-cross-month-checkbox"> 月線 </label>
                               </div>
                             </div>
+                            <hr>
+                            <div class="row">
+                              <div class="col form-check form-check-inline">
+                                <input type="hidden" name="MACD_osc_shorten" value="0">
+                                <input class="form-check-input" type="checkbox" id="MACD-osc-shorten-checkbox" name="MACD_osc_shorten" value="1" onchange="toggle_enable(
+                                  this, 
+                                  ['MACD-osc-shorten-red-checkbox', 'MACD-osc-shorten-green-checkbox', 'MACD-osc-shorten-day-checkbox', 'MACD-osc-shorten-week-checkbox', 'MACD-osc-shorten-month-checkbox'], 
+                                  ['MACD-osc-shorten-red-checkbox', 'MACD-osc-shorten-green-checkbox', 'MACD-osc-shorten-day-checkbox', 'MACD-osc-shorten-week-checkbox', 'MACD-osc-shorten-month-checkbox']
+                                  )">
+                                <label class="form-check-label" for="MACD-osc-shorten-checkbox">柱狀圖縮短</label>
+                              </div>
+                              <div class="col">
+                                <input type="hidden" name="MACD_osc_shorten_red" value="0">
+                                <input class="form-check-input" type="checkbox" id="MACD-osc-shorten-red-checkbox" name="MACD_osc_shorten_red" value="1" onchange="toggle_enable(this, ['K-greater-input'], ['K-greater-input'])" disabled>
+                                <label class="form-label" for="MACD-osc-shorten-red-checkbox"> 紅柱 </label>
+                              </div>
+                              <div class="col">
+                                <input type="hidden" name="MACD_osc_shorten_green" value="0">
+                                <input class="form-check-input" type="checkbox" id="MACD-osc-shorten-green-checkbox" name="MACD_osc_shorten_green" value="1" onchange="toggle_enable(this, ['K-less-input'], ['K-less-input'])" disabled>
+                                <label class="form-label" for="MACD-osc-shorten-green-checkbox"> 綠柱 </label>
+                              </div>
+                              <div class="col">
+                                <input type="hidden" name="MACD_osc_shorten_day" value="0">
+                                <input class="form-check-input" type="checkbox" id="MACD-osc-shorten-day-checkbox" name="MACD_osc_shorten_day" value="1" disabled>
+                                <label class="form-label" for="MACD-osc-shorten-day-checkbox"> 日線 </label>
+                              </div>
+                              <div class="col">
+                                <input type="hidden" name="MACD_osc_shorten_week" value="0">
+                                <input class="form-check-input" type="checkbox" id="MACD-osc-shorten-week-checkbox" name="MACD_osc_shorten_week" value="1" disabled>
+                                <label class="form-label" for="MACD-osc-shorten-month-checkbox"> 週線 </label>
+                              </div>
+                              <div class="col">
+                                <input type="hidden" name="MACD_osc_shorten_month" value="0">
+                                <input class="form-check-input" type="checkbox" id="MACD-osc-shorten-month-checkbox" name="MACD_osc_shorten_month" value="1" disabled>
+                                <label class="form-label" for="MACD-osc-shorten-month-checkbox"> 月線 </label>
+                              </div>
+                            </div>
+                            <hr>
+                            <div class="row">
+                              <div class="col form-check form-check-inline">
+                                <input type="hidden" name="MACD_cross_predict" value="0">
+                                <input class="form-check-input" type="checkbox" id="MACD-cross-predict-checkbox" name="MACD_cross_predict" value="1" onchange="toggle_enable(
+                                  this, 
+                                  ['MACD-golden-cross-predict-checkbox', 'MACD-d-cross-predict-checkbox', 'MACD-cross-predict-day-checkbox', 'MACD-cross-predict-week-checkbox', 'MACD-cross-predict-month-checkbox'], 
+                                  ['MACD-golden-cross-predict-checkbox', 'MACD-d-cross-predict-checkbox', 'MACD-cross-predict-day-checkbox', 'MACD-cross-predict-week-checkbox', 'MACD-cross-predict-month-checkbox']
+                                  )">
+                                <label class="form-check-label" for="MACD-cross-predict-checkbox">交叉預測</label>
+                              </div>
+                              <div class="col">
+                                <input type="hidden" name="MACD_golden_cross_predict" value="0">
+                                <input class="form-check-input" type="checkbox" id="MACD-golden-cross-predict-checkbox" name="MACD_golden_cross_predict" value="1" onchange="toggle_enable(this, ['K-greater-input'], ['K-greater-input'])" disabled>
+                                <label class="form-label" for="MACD-golden-cross-predict-checkbox"> 黃金交叉 </label>
+                              </div>
+                              <div class="col">
+                                <input type="hidden" name="MACD_d_cross_predict" value="0">
+                                <input class="form-check-input" type="checkbox" id="MACD-d-cross-predict-checkbox" name="MACD_d_cross_predict" value="1" onchange="toggle_enable(this, ['K-less-input'], ['K-less-input'])" disabled>
+                                <label class="form-label" for="MACD-d-cross-predict-checkbox"> 死亡交叉 </label>
+                              </div>
+                              <div class="col">
+                                <input type="hidden" name="MACD_cross_predict_day" value="0">
+                                <input class="form-check-input" type="checkbox" id="MACD-cross-predict-day-checkbox" name="MACD_cross_predict_day" value="1" disabled>
+                                <label class="form-label" for="MACD-cross-predict-day-checkbox"> 日線 </label>
+                              </div>
+                              <div class="col">
+                                <input type="hidden" name="MACD_cross_predict_week" value="0">
+                                <input class="form-check-input" type="checkbox" id="MACD-cross-predict-week-checkbox" name="MACD_cross_predict_week" value="1" disabled>
+                                <label class="form-label" for="MACD-cross-predict-month-checkbox"> 週線 </label>
+                              </div>
+                              <div class="col">
+                                <input type="hidden" name="MACD_cross_predict_month" value="0">
+                                <input class="form-check-input" type="checkbox" id="MACD-cross-predict-month-checkbox" name="MACD_cross_predict_month" value="1" disabled>
+                                <label class="form-label" for="MACD-cross-predict-month-checkbox"> 月線 </label>
+                              </div>
+                            </div>
                           </div>
                           
                         </div>
