@@ -46,8 +46,8 @@ async def refreshCode():
 
 @app.get("/refresh/price/")
 async def refreshPrice():
-    infoFetcher.updatePrice_yahoo(key=['dtype'], val=['股票'])
-    # infoFetcher.updatePrice(key=['市場別', 'dtype'], val=['上市', '股票'])
+    # infoFetcher.updatePrice_yahoo(key=['dtype'], val=['股票'])
+    infoFetcher.updatePrice(key=['市場別', 'dtype'], val=['上市', '股票'])
 
 
 # @app.exception_handler(RequestValidationError)
@@ -83,7 +83,7 @@ async def filter(request: Request):
     res = []
     for s in DB.code_col.find():
         stock[s['code']] = s
-    href = 'https://tw.stock.yahoo.com/quote/${element.code}.TW/technical-analysis'
+    # href = 'https://tw.stock.yahoo.com/quote/${element.code}.TW/technical-analysis'
     for s in DB.price_col.find():
         # print(f'API_SERVER: code: {s["code"]}')
         info = f.makeInfo(s['data'])
