@@ -22,7 +22,7 @@ def fetchPrice_yahoo(code, days=1800, expansion='TW'):
         start=f'{start.year}-{start.month:02}-{start.day:02}', 
         end=f'{end.year}-{end.month:02}-{end.day:02}', 
     )
-    print(df)
+    # print(df)
 
     data = [] # columns= ['日期', '開盤價', '最高價', '最低價', '收盤價']
     for i in range(df.shape[0]):
@@ -50,7 +50,7 @@ def fetchPrice(code, period=120):
             y -= ((i-month)//12 + 1)
 
         url = f'{root}&date={y}{m:02}01&stockNo={code}'
-        print(url)
+        # print(url)
         json_data = requests.get(url).json()
         if 'data' in json_data:
             for info in json_data['data']:
@@ -240,7 +240,7 @@ class MACD_Filter():
             DIF.append(fastEMA-slowEMA)
             MACD.append(macd)
             # print(f'({dates[i]})\tfast: {F[-1]:.3f}\t|\tslow: {S[-1]:.3f}\t|\tdif: {DIF[-1]:.4f}\t|\tMACD: {MACD[-1]:.4f}\t|\tOSC: {2*(DIF[-1]-MACD[-1]):.4f}')
-        print(f'fast: {F[-1]:.3f}\t|\tslow: {S[-1]:.3f}\t|\tdif: {DIF[-1]:.4f}\t|\tMACD: {MACD[-1]:.4f}')
+        # print(f'fast: {F[-1]:.3f}\t|\tslow: {S[-1]:.3f}\t|\tdif: {DIF[-1]:.4f}\t|\tMACD: {MACD[-1]:.4f}')
         return F, S, DIF, MACD
 
 
