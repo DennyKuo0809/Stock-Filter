@@ -50,7 +50,7 @@ def fetchPrice(code, period=120):
             y -= ((i-month)//12 + 1)
 
         url = f'{root}&date={y}{m:02}01&stockNo={code}'
-        print(url)
+        # print(url)
         json_data = requests.get(url).json()
         if 'data' in json_data:
             for info in json_data['data']:
