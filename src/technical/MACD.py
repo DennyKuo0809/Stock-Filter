@@ -155,9 +155,9 @@ class MACD_Filter():
 
         if int(condition['MACD_cross_predict']):
             if int(condition['MACD_cross_predict_day']):
-                if int(condition['MACD_golden_cross_predict']) and self.cross(interval='day') != 1:
+                if int(condition['MACD_golden_cross_predict']) and self.cross_predict(interval='day') != 1:
                         return 0
-                if int(condition['MACD_d_cross_predict']) and self.cross(interval='day') != -1:
+                if int(condition['MACD_d_cross_predict']) and self.cross_predict(interval='day') != -1:
                         return 0
             
             if int(condition['MACD_cross_predict_week']):
