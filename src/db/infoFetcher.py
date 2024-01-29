@@ -1,4 +1,4 @@
-from .db import *
+from db import *
 from tqdm import tqdm
 import datetime
 import requests
@@ -7,6 +7,9 @@ import yfinance
 
 ### For fetching price
 root = 'http://www.twse.com.tw/exchangeReport/STOCK_DAY?response=json'
+### For fetching price (OTC)
+url = "https://www.tpex.org.tw/web/stock/aftertrading/daily_trading_info/st43_result.php?l=zh-tw&d=110/10&stkno=6488"
+OTC_root = "https://www.tpex.org.tw/web/stock/aftertrading/daily_trading_info/st43_result.php?l=zh-tw&"
 
 ### For fetching codes
 TWSE_URL = 'http://isin.twse.com.tw/isin/C_public.jsp?strMode=2'
@@ -50,7 +53,7 @@ def fetchPrice(code, period=120):
             y -= ((i-month)//12 + 1)
 
         url = f'{root}&date={y}{m:02}01&stockNo={code}'
-        print(url)
+        # print(url)
         json_data = requests.get(url).json()
         if 'data' in json_data:
             for info in json_data['data']:
@@ -58,6 +61,33 @@ def fetchPrice(code, period=120):
                 for k, v in zip(json_data['fields'], info):
                     d[k] = v
                 data.append(d)
+                # print(d)
+    return {'code': code, 'data': data }
+
+### Fetch daily price for the past (period) months
+def fetchPrice_OTC(code, period=120): 
+    year = datetime.date.today().year
+    month = datetime.date.today().month
+    data = []
+    columns= ['日期', '成交股數', '成交金額', '開盤價', '最高價', '最低價', '收盤價', '漲跌價差', '成交筆數']
+
+    for i in reversed(range(period)):
+        m =  (month - i%12) if (month - i%12 > 0) else (month - i%12 + 12) 
+        y = year
+        if i >= month:
+            y -= ((i-month)//12 + 1)
+
+        url = f'{OTC_root}&d={y-1911}/{m:02}&stkno={code}'
+        # print(url)
+        json_data = requests.get(url).json()
+        # print(json_data['aaData'])
+        if 'aaData' in json_data:
+            for info in json_data['aaData']:
+                d = {}
+                for k, v in zip(columns, info):
+                    d[k] = v
+                data.append(d)
+                # print(d)
     return {'code': code, 'data': data }
 
 def getCodes():
@@ -97,18 +127,18 @@ class InfoFetcher:
             return
         
         ### Get the list of code
-        stock_list = []
-        if len(key) != 0:
-            for d in self.db.code_col.find():
-                match = True
-                for k, v in zip(key, val):
-                    if d[k] != v:
-                        match = False
-                        break
-                if match:
-                    stock_list.append(d['code'])
-        else:
-            stock_list = [s['code'] for s in self.db.code_col.find()]
+        stock_list = {}
+        for d in self.db.code_col.find():
+            match = True
+            for k, v in zip(key, val):
+                if d[k] != v:
+                    match = False
+                    break
+            if match:
+                if d['市場別'] == '上市':
+                    stock_list[d['code']] = 'LIST'
+                elif d['市場別'] == '上櫃':
+                    stock_list[d['code']] = 'OTC'
         # print(code_list)
                     
         ### Fetch the price and update to db
@@ -125,16 +155,16 @@ class InfoFetcher:
         month_now = datetime.date.today().month
         year_now = datetime.date.today().year
 
-        for stock in tqdm(stock_list):
+        for stock, type_ in tqdm(stock_list.items()):
         # for stock in exist_stock:
             # print(stock)
             if stock not in exist_stock:
                 # print('newly add')
-                d = fetchPrice(stock)
+                d = fetchPrice(stock) if type_ == 'LIST' else fetchPrice_OTC(stock)
                 self.db.insert_data(self.db.price_col, d)
             elif exist_stock[stock] == 'empty':
                 self.db.price_col.delete_one({'code' : stock})
-                price_data = fetchPrice(stock)
+                price_data = fetchPrice(stock) if type_ == 'LIST' else fetchPrice_OTC(stock)
                 self.db.insert_data(self.db.price_col, price_data)
             else:
                 # print('exist')
@@ -148,11 +178,11 @@ class InfoFetcher:
 
                 if day_without_update > 365: # Over a year
                     self.db.price_col.delete_one({'code' : stock})
-                    price_data = fetchPrice(stock)
+                    price_data = fetchPrice(stock) if type_ == 'LIST' else fetchPrice_OTC(stock)
                     self.db.insert_data(self.db.price_col, price_data)
                 elif day_without_update > 0:
                     period = (month_now-int(lum)+1) if month_now >= int(lum) else (month_now-int(lum)+13)
-                    price_data = fetchPrice(stock, period = period)
+                    price_data = fetchPrice(stock, period=period) if type_ == 'LIST' else fetchPrice_OTC(stock, period=period)
                     current_data = self.db.price_col.find({'code' : stock}, {'_id': 0, 'data' : 1})[0]['data']
                     new_data = []
                     for cd in current_data:
@@ -239,9 +269,6 @@ class InfoFetcher:
                     self.db.price_col.update_one({'code': stock}, {"$set": {'data': new_data}})
 
 if __name__ == "__main__":
-    ### Init a db interface
-    dbi = DB_Interface()
-
-    IF = InfoFetcher(dbi)
-    # IF.updateCode()
-    IF.updatePrice(key=['code'], val=['1102'])
+    # fetchPrice(5222, period=1)
+    # fetchPrice_OTC(6488, period=1)
+    pass
