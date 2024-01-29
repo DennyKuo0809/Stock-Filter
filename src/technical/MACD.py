@@ -37,21 +37,20 @@ def fetchPrice_yahoo(code, days=1800, expansion='TW'):
     return {'code': code, 'data': data }
 
 ### Fetch daily price for the past (period) months
-def fetchPrice(code, period=12): 
+def fetchPrice(code, period=120): 
     year = datetime.date.today().year
     month = datetime.date.today().month
     data = []
     # columns= ['日期', '成交股數', '成交金額', '開盤價', '最高價', '最低價', '收盤價', '漲跌價差', '成交筆數']
 
-    for i in range(1, period+1):
+    for i in reversed(range(period)):
+        m =  (month - i%12) if (month - i%12 > 0) else (month - i%12 + 12) 
         y = year
-        m = month - period + i
-        if m <= 0:
-            y -= 1
-            m += 12
+        if i >= month:
+            y -= ((i-month)//12 + 1)
 
         url = f'{root}&date={y}{m:02}01&stockNo={code}'
-        # print(url)
+        print(url)
         json_data = requests.get(url).json()
         if 'data' in json_data:
             for info in json_data['data']:
@@ -86,10 +85,10 @@ class MACD_Filter():
             self.prices['day']['close']
         )
         self.prices['week']['fastEMA'], self.prices['week']['slowEMA'], self.prices['week']['DIF'], self.prices['week']['MACD'] = self.calculate(
-            self.prices['week']['close']
+            self.prices['week']['close'], fast=10, slow=20
         )
         self.prices['month']['fastEMA'], self.prices['month']['slowEMA'], self.prices['month']['DIF'], self.prices['month']['MACD'] = self.calculate(
-            self.prices['month']['close']
+            self.prices['month']['close'], fast=10, slow=20
         )
 
         ### Check the conditions
@@ -240,13 +239,35 @@ class MACD_Filter():
             S.append(slowEMA)
             DIF.append(fastEMA-slowEMA)
             MACD.append(macd)
-            # print(f'price: {close[i]:.3f}\t|\tfast: {fastEMA:.3f}\t|\tslow: {slowEMA:.3f}\t|\tdif: {DIF[-1]:.2f}\t|\tMACD: {macd:.2f}')
+            # print(f'({dates[i]})\tfast: {F[-1]:.3f}\t|\tslow: {S[-1]:.3f}\t|\tdif: {DIF[-1]:.4f}\t|\tMACD: {MACD[-1]:.4f}\t|\tOSC: {2*(DIF[-1]-MACD[-1]):.4f}')
+        print(f'fast: {F[-1]:.3f}\t|\tslow: {S[-1]:.3f}\t|\tdif: {DIF[-1]:.4f}\t|\tMACD: {MACD[-1]:.4f}')
         return F, S, DIF, MACD
 
 
 if __name__ == "__main__":
-    d = fetchPrice(2412)
-    date = [i['日期'] for i in d['data']]
-    p = [float(i['收盤價']) for i in d['data']]
+    from interval import Interval_Applier
+    IA = Interval_Applier()
     m = MACD_Filter()
-    m.calculate(p)
+
+    d = fetchPrice(2330)['data']
+    # print(d)
+    # day
+    # p = [float(i['收盤價']) for i in d]
+    # dates = [i['日期'] for i in d]
+    # print(dates)
+    # print('(DAY)', end=' ')
+    # m.calculate(p, dates, fast=10, slow=20)
+
+    # # week
+    week_d = IA.apply_interval(d, interval='week')
+    p = [float(i['收盤價']) for i in week_d]
+    dates = [i['日期'] for i in week_d]
+    print('(WEEK)', end='\n')
+    m.calculate(p, dates, fast=12, slow=26)
+
+    # month
+    # month_d = IA.apply_interval(d, interval='month')
+    # p = [float(i['收盤價']) for i in month_d]
+    # dates = [i['日期'] for i in month_d]
+    # print('(MONTH)', end=' ')
+    # m.calculate(p, dates, fast=12, slow=26)

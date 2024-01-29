@@ -37,21 +37,20 @@ def fetchPrice_yahoo(code, days=1800, expansion='TW'):
     return {'code': code, 'data': data }
 
 ### Fetch daily price for the past (period) months
-def fetchPrice(code, period=12): 
+def fetchPrice(code, period=120): 
     year = datetime.date.today().year
     month = datetime.date.today().month
     data = []
     # columns= ['日期', '成交股數', '成交金額', '開盤價', '最高價', '最低價', '收盤價', '漲跌價差', '成交筆數']
 
-    for i in range(1, period+1):
+    for i in reversed(range(period)):
+        m =  (month - i%12) if (month - i%12 > 0) else (month - i%12 + 12) 
         y = year
-        m = month - period + i
-        if m <= 0:
-            y -= 1
-            m += 12
+        if i >= month:
+            y -= ((i-month)//12 + 1)
 
         url = f'{root}&date={y}{m:02}01&stockNo={code}'
-        # print(url)
+        print(url)
         json_data = requests.get(url).json()
         if 'data' in json_data:
             for info in json_data['data']:
@@ -147,7 +146,7 @@ class InfoFetcher:
                 current_data = self.db.price_col.find({'code' : stock}, {'_id': 0, 'data' : 1})[0]['data']
                 # print(len(current_data))
 
-                if day_without_update > 1800: # Over a year
+                if day_without_update > 365: # Over a year
                     self.db.price_col.delete_one({'code' : stock})
                     price_data = fetchPrice(stock)
                     self.db.insert_data(self.db.price_col, price_data)
@@ -158,8 +157,8 @@ class InfoFetcher:
                     new_data = []
                     for cd in current_data:
                         y, m, _ = cd['日期'].split('/')
-                        if (int(y) < year_now - 1911 and int(m) <= month_now) \
-                            or (int(y) == year_now - 1911 and int(m) == month_now):
+                        if (int(y) < year_now - 1911) \
+                            or (int(y) == year_now - 1911 and int(m) < month_now):
                             continue
                         new_data.append(cd)
                     new_data += price_data['data']
