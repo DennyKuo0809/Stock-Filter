@@ -188,7 +188,7 @@ class InfoFetcher:
                     for cd in current_data:
                         y, m, _ = cd['日期'].split('/')
                         if (int(y) < year_now - 1911) \
-                            or (int(y) == year_now - 1911 and int(m) < month_now):
+                            or (int(y) == year_now - 1911 and int(m) <= month_now):
                             continue
                         new_data.append(cd)
                     new_data += price_data['data']
