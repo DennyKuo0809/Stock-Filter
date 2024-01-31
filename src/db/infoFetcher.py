@@ -182,10 +182,10 @@ class InfoFetcher:
                     self.db.insert_data(self.db.price_col, price_data)
                 elif day_without_update > 0:
                     period = 1
-                    if year_now - 1911 == luy: ### same year
-                        period = (month_now - lum + 1)
+                    if year_now - 1911 == int(luy): ### same year
+                        period = (month_now - int(lum) + 1)
                     else:
-                        period = 12 * (year_now - 1911 - luy - 1) + (13 - lum + month_now)
+                        period = 12 * (year_now - 1911 - int(luy) - 1) + (13 - int(lum) + month_now)
 
 
                     # period = (month_now-int(lum)+1) if month_now >= int(lum) else (month_now-int(lum)+13)
