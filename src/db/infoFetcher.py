@@ -194,7 +194,7 @@ class InfoFetcher:
                     new_data = []
                     for cd in current_data:
                         y, m, _ = cd['日期'].split('/')
-                        if (int(y) == luy and int(m) == lum):
+                        if (int(y) == int(luy) and int(m) == int(lum)):
                             continue
                         new_data.append(cd)
                     new_data += price_data['data']
