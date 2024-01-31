@@ -176,91 +176,25 @@ class InfoFetcher:
                 current_data = self.db.price_col.find({'code' : stock}, {'_id': 0, 'data' : 1})[0]['data']
                 # print(len(current_data))
 
-                if day_without_update > 365: # Over a year
+                if day_without_update > 1800: ### Over 1800 days
                     self.db.price_col.delete_one({'code' : stock})
                     price_data = fetchPrice(stock) if type_ == 'LIST' else fetchPrice_OTC(stock)
                     self.db.insert_data(self.db.price_col, price_data)
                 elif day_without_update > 0:
-                    period = (month_now-int(lum)+1) if month_now >= int(lum) else (month_now-int(lum)+13)
+                    period = 1
+                    if year_now - 1911 == luy: ### same year
+                        period = (month_now - lum + 1)
+                    else:
+                        period = 12 * (year_now - 1911 - luy - 1) + (13 - lum + month_now)
+
+
+                    # period = (month_now-int(lum)+1) if month_now >= int(lum) else (month_now-int(lum)+13)
                     price_data = fetchPrice(stock, period=period) if type_ == 'LIST' else fetchPrice_OTC(stock, period=period)
                     current_data = self.db.price_col.find({'code' : stock}, {'_id': 0, 'data' : 1})[0]['data']
                     new_data = []
                     for cd in current_data:
                         y, m, _ = cd['日期'].split('/')
-                        if (int(y) == year_now - 1911 and int(m) == month_now):
-                            continue
-                        new_data.append(cd)
-                    new_data += price_data['data']
-                    self.db.price_col.update_one({'code': stock}, {"$set": {'data': new_data}})
-
-    def updatePrice_yahoo(self, key=[], val=[]):
-        ### Chcek
-        if len(key) != len(val):
-            print("[ERROR] The length of key and value do not match.")
-            return
-        
-        ### Get the list of code
-        stock_list = {}
-        for d in self.db.code_col.find():
-            match = True
-            for k, v in zip(key, val):
-                if d[k] != v:
-                    match = False
-                    break
-            if match:
-                if d['市場別'] == '上市':
-                    stock_list[d['code']] = 'TW'
-                elif d['市場別'] == '上櫃':
-                    stock_list[d['code']] = 'TWO'
-        # print(code_list)
-                    
-        ### Fetch the price and update to db
-        exist_stock = {}
-        for s in self.db.price_col.find():
-            # print(s['code'])
-            exist_stock[s['code']] = s['data'][-1]['日期'] if len(s['data']) else 'empty'
-
-        price_data = []
-
-        date_now = datetime.date.fromisoformat(
-            f'{datetime.date.today().year}-{datetime.date.today().month:02}-{datetime.date.today().day:02}'
-        )
-        month_now = datetime.date.today().month
-        year_now = datetime.date.today().year
-
-        for stock, expansion in tqdm(stock_list.items()):
-        # for stock in exist_stock:
-            # print(stock)
-            if stock not in exist_stock:
-                # print('newly add')
-                d = fetchPrice_yahoo(stock, expansion=expansion)
-                self.db.insert_data(self.db.price_col, d)
-            elif exist_stock[stock] == 'empty':
-                self.db.price_col.delete_one({'code' : stock})
-                price_data = fetchPrice_yahoo(stock, expansion=expansion)
-                self.db.insert_data(self.db.price_col, price_data)
-            else:
-                # print('exist')
-                luy, lum, lud = exist_stock[stock].split('/')
-                last_update = datetime.date.fromisoformat(f'{int(luy)+1911}-{int(lum):02}-{int(lud):02}')
-                day_without_update = (date_now - last_update).days
-                # print(date_now, ' ', last_update, ' ', day_without_update)
-
-                current_data = self.db.price_col.find({'code' : stock}, {'_id': 0, 'data' : 1})[0]['data']
-                # print(len(current_data))
-
-                if day_without_update > 1800: # Over a year
-                    self.db.price_col.delete_one({'code' : stock})
-                    price_data = fetchPrice_yahoo(stock, expansion=expansion)
-                    self.db.insert_data(self.db.price_col, price_data)
-                elif day_without_update > 0:
-                    # period = (month_now-int(lum)+1) if month_now >= int(lum) else (month_now-int(lum)+13)
-                    price_data = fetchPrice_yahoo(stock, days=day_without_update, expansion=expansion)
-                    current_data = self.db.price_col.find({'code' : stock}, {'_id': 0, 'data' : 1})[0]['data']
-                    new_data = []
-                    for cd in current_data:
-                        y, m, _ = cd['日期'].split('/')
-                        if (int(y) == year_now - 1911 and int(m) == month_now):
+                        if (int(y) == luy and int(m) == lum):
                             continue
                         new_data.append(cd)
                     new_data += price_data['data']

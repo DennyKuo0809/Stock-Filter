@@ -11,7 +11,7 @@ class Interval_Applier:
         for i, date_ in enumerate(dates):
             y_, m_, d_ = date_.split('/')
             y_ = 1911 + int(y_)
-            week_day = datetime.datetime.strptime(f"{y_}-{m_}-{d_}", '%Y-%m-%d').weekday()
+            week_day = datetime.datetime.strptime(f"{y_}-{m_}-{d_[:2]}", '%Y-%m-%d').weekday()
             # print(f"{y_}-{m_}-{d_}", ' ', week_day)
             if week_day < last_weekday:
                 if len(intervals):
