@@ -573,6 +573,36 @@
                               </div>
                             </div>
                           </div>
+
+                          <div id="trend-div" style="display: none;">
+                            <div class="row">
+                              <div class="col form-check form-check-inline">
+                                <input type="hidden" name="TREND_high_price" value="0">
+                                <input class="form-check-input" type="checkbox" id="TREND-high-price-checkbox" name="TREND_high_price" value="1" onchange="toggle_enable(
+                                  this, 
+                                  ['TREND-high-price-day-checkbox', 'TREND-high-price-week-checkbox', 'TREND-high-price-month-checkbox', 'TREND-high-price-interval-input'], 
+                                  ['TREND-high-price-day-checkbox', 'TREND-high-price-week-checkbox', 'TREND-high-price-month-checkbox', 'TREND-high-price-interval-input']
+                                  )">
+                                <label class="form-check-label" for="TREND-high-price-checkbox">區間高點</label>
+                                <input type="text" class="form-control" placeholder="數值" id="TREND-high-price-interval-input" style="width: 4rem;" aria-label="High Price Interval" name="TREND_high_price_interval" value="7" disabled>
+                              </div>
+                              <div class="col">
+                                <input type="hidden" name="TREND_high_price_day" value="0">
+                                <input class="form-check-input" type="checkbox" id="TREND-high-price-day-checkbox" name="TREND_high_price_day" value="1" disabled>
+                                <label class="form-label" for="TREND-high-price-day-checkbox"> 日線 </label>
+                              </div>
+                              <div class="col">
+                                <input type="hidden" name="TREND_high_price_week" value="0">
+                                <input class="form-check-input" type="checkbox" id="TREND-high-price-week-checkbox" name="TREND_high_price_week" value="1" disabled>
+                                <label class="form-label" for="TREND-high-price-week-checkbox"> 週線 </label>
+                              </div>
+                              <div class="col">
+                                <input type="hidden" name="TREND_high_price_month" value="0">
+                                <input class="form-check-input" type="checkbox" id="TREND-high-price-month-checkbox" name="TREND_high_price_month" value="1" disabled>
+                                <label class="form-label" for="TREND-high-price-month-checkbox"> 月線 </label>
+                              </div>
+                            </div>
+                          </div>
                           
                         </div>
                     </form>
