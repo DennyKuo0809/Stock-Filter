@@ -187,7 +187,7 @@ class InfoFetcher:
                     else:
                         period = 12 * (year_now - 1911 - int(luy) - 1) + (13 - int(lum) + month_now)
 
-                    startDate = f'{int(luy+1911)}-{int(lum):02}-01'
+                    startDate = f'{int(luy)+1911}-{int(lum):02}-01'
                     # price_data = fetchPrice(stock, period=period) if type_ == 'LIST' else fetchPrice_OTC(stock, period=period)
                     price_data = fetchPrice(stock, period=period) if type_ == 'LIST' else fetchPrice_yahoo(stock, startDate, expansion='TWO')
                     current_data = self.db.price_col.find({'code' : stock}, {'_id': 0, 'data' : 1})[0]['data']
