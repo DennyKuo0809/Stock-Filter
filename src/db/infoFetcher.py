@@ -9,7 +9,7 @@ import yfinance
 root = 'http://www.twse.com.tw/exchangeReport/STOCK_DAY?response=json'
 ### For fetching price (OTC)
 url = "https://www.tpex.org.tw/web/stock/aftertrading/daily_trading_info/st43_result.php?l=zh-tw&d=110/10&stkno=6488"
-OTC_root = "https://www.tpex.org.tw/web/stock/aftertrading/daily_trading_info/st43_result.php?l=zh-tw&"
+OTC_root = "https://www.tpex.org.tw/web/stock/aftertrading/daily_trading_info/st43_result.php?l=zh-tw"
 
 ### For fetching codes
 TWSE_URL = 'http://isin.twse.com.tw/isin/C_public.jsp?strMode=2'
