@@ -109,7 +109,7 @@ class MACD_Filter():
         ### 1:  High Price
         ### 0:  None
 
-        info = self.prices[interval]
+        info = self.prices[interval]['close']
 
         historyLen = min(len(info)-1, length)
         for i in range(historyLen):
