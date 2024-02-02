@@ -18,6 +18,10 @@ class KDJ_Filter:
                     return -1
         # print('in KDJ match pass check')
 
+        ### ignore if not specified
+        if not int(condition['K_value']) and not int(condition['D_value']) and not int(condition['J_value']) and not int(condition['KDJ_cross']):
+            return 1
+            
         ### Fetch prices by code
         self.prices = copy.deepcopy(info)
 
