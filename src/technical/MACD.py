@@ -76,7 +76,10 @@ class MACD_Filter():
             else:
                 if v != '0' and v != '1':
                     return -1
-
+        ### Ignore if not specified
+        if not int(condition['MACD_zero']) and not int(condition['MACD_cross']) and not int(condition['MACD_osc_shorten']) and not int(condition['MACD_cross_predict']):
+            return 1
+        
         ### Fetch prices by code
         self.prices = copy.deepcopy(info)
 

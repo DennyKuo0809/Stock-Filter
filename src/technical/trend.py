@@ -62,7 +62,7 @@ def fetchPrice(code, period=120):
 
 import re
 import copy
-class MACD_Filter():
+class TREND_Filter():
     def __init__(self, ):
         self.prices = {}
 
@@ -109,7 +109,7 @@ class MACD_Filter():
         ### 1:  High Price
         ### 0:  None
 
-        info = self.prices[interval]
+        info = self.prices[interval]['close']
 
         historyLen = min(len(info)-1, length)
         for i in range(historyLen):
@@ -121,27 +121,4 @@ class MACD_Filter():
 if __name__ == "__main__":
     from interval import Interval_Applier
     IA = Interval_Applier()
-    m = MACD_Filter()
-
-    d = fetchPrice(2330)['data']
-    # print(d)
-    # day
-    # p = [float(i['收盤價']) for i in d]
-    # dates = [i['日期'] for i in d]
-    # print(dates)
-    # print('(DAY)', end=' ')
-    # m.calculate(p, dates, fast=10, slow=20)
-
-    # # week
-    week_d = IA.apply_interval(d, interval='week')
-    p = [float(i['收盤價']) for i in week_d]
-    dates = [i['日期'] for i in week_d]
-    print('(WEEK)', end='\n')
-    m.calculate(p, dates, fast=12, slow=26)
-
-    # month
-    # month_d = IA.apply_interval(d, interval='month')
-    # p = [float(i['收盤價']) for i in month_d]
-    # dates = [i['日期'] for i in month_d]
-    # print('(MONTH)', end=' ')
-    # m.calculate(p, dates, fast=12, slow=26)
+    m = TREND_Filter()

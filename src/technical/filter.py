@@ -4,6 +4,7 @@ import re
 
 from .KDJ import KDJ_Filter
 from .MACD import MACD_Filter
+from .trend import TREND_Filter
 
 class Filter:
     def __init__(self,):
@@ -12,6 +13,7 @@ class Filter:
         self.IA = Interval_Applier()
         self.KDJ_F = KDJ_Filter()
         self.MACD_F = MACD_Filter()
+        self.TREND_F = TREND_Filter()
         pass
     
     def makeInfo(self, data):
@@ -67,6 +69,8 @@ class Filter:
         match =  (self.KDJ_F.match(info, condition) == 1)
         if match:
             match = (self.MACD_F.match(info, condition) == 1)
+        if match:
+            match = (self.TREND_F.match(info, condition) == 1)
         return match
     
     # def matchKDJ(self,):
