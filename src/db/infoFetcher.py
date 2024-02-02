@@ -17,13 +17,13 @@ TPEX_URL = 'http://isin.twse.com.tw/isin/C_public.jsp?strMode=4'
 
 
 ### Fetch Price from yahoo
-def fetchPrice_yahoo(code, days=1800, expansion='TW'):
-    period = 1800 if days > 1800 else days
+def fetchPrice_yahoo(code, startDate, expansion='TW'):
+    # period = 1800 if days > 1800 else days
     end = datetime.date.today()+datetime.timedelta(days=1)
-    start = datetime.date.today()+datetime.timedelta(days=(-1)*period)
+    # start = datetime.date.today()+datetime.timedelta(days=(-1)*period)
     df = yfinance.download(
         f'{code}.{expansion}', 
-        start=f'{start.year}-{start.month:02}-{start.day:02}', 
+        start=startDate, 
         end=f'{end.year}-{end.month:02}-{end.day:02}', 
     )
 
@@ -187,9 +187,9 @@ class InfoFetcher:
                     else:
                         period = 12 * (year_now - 1911 - int(luy) - 1) + (13 - int(lum) + month_now)
 
-
-                    # period = (month_now-int(lum)+1) if month_now >= int(lum) else (month_now-int(lum)+13)
-                    price_data = fetchPrice(stock, period=period) if type_ == 'LIST' else fetchPrice_OTC(stock, period=period)
+                    startDate = f'{int(luy+1911)}-{int(lum):02}-01'
+                    # price_data = fetchPrice(stock, period=period) if type_ == 'LIST' else fetchPrice_OTC(stock, period=period)
+                    price_data = fetchPrice(stock, period=period) if type_ == 'LIST' else fetchPrice_yahoo(stock, startDate, expansion='TWO')
                     current_data = self.db.price_col.find({'code' : stock}, {'_id': 0, 'data' : 1})[0]['data']
                     new_data = []
                     for cd in current_data:
