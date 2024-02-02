@@ -69,13 +69,9 @@ class MACD_Filter():
     def match(self, info: dict, condition: dict):
         ### Validation
         for k, v in condition.items():
-            if 'than' in k:
-                if re.match(r'^-?\d+(?:\.\d+)$', v) is None and re.match(r'^[-+]?[0-9]+$', v) is None:
-                    # print(v)
-                    return -1
-            else:
-                if v != '0' and v != '1':
-                    return -1
+            if re.match(r'^-?\d+(?:\.\d+)$', v) is None and re.match(r'^[-+]?[0-9]+$', v) is None:
+                # print(v)
+                return -1
         ### Ignore if not specified
         if not int(condition['MACD_zero']) and not int(condition['MACD_cross']) and not int(condition['MACD_osc_shorten']) and not int(condition['MACD_cross_predict']):
             return 1
